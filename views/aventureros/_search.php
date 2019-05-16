@@ -15,15 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'nombre') ?>
-
-    <?= $form->field($model, 'rareza') ?>
-
-    <?= $form->field($model, 'elemento') ?>
-
-    <?= $form->field($model, 'arma') ?>
 
     <?php // echo $form->field($model, 'hab1_id') ?>
 
@@ -72,8 +64,7 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'imagen_minimizada') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

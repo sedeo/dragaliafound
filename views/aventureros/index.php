@@ -14,28 +14,52 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Aventureros', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if (Yii::$app->user->can('admin')): ?>
+        <p>
+            <?= Html::a('Insertar nuevo aventurero', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'nombre',
+            //'id',
+            [
+                'attribute' => 'nombre',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::a(Html::encode($data->nombre), ['aventureros/view', 'id' => $data->id]);
+                },
+            ],
             'rareza',
             'elemento',
             'arma',
-            //'hab1_id',
-            //'hab2_id',
-            //'pas1_id',
-            //'pas2_id',
-            //'pas3_id',
+            [
+                'attribute' => 'hab1.nombre',
+                'label' => 'Habilidad 1'
+            ],
+            [
+                'attribute' => 'hab2.nombre',
+                'label' => 'Habilidad 2'
+            ],
+            [
+                'attribute' => 'pas1.nombre',
+                'label' => 'Pasiva 1'
+            ],
+            [
+                'attribute' => 'pas2.nombre',
+                'label' => 'Pasiva 2'
+            ],
+            [
+                'attribute' => 'pas3.nombre',
+                'label' => 'Pasiva 3'
+            ],
             //'coab_id',
             //'backstory',
             //'vida_base',
@@ -55,7 +79,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'imagen_entera',
             //'imagen_minimizada',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visible' => Yii::$app->user->can('admin') ? true : false,
+            ],
         ],
     ]); ?>
 

@@ -31,6 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             [
+                'attribute' => 'imagen_minimizada',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::img(Yii::getAlias('@web').'uploads/imagen_entera/'. $data['imagen_minimizada']);
+                },
+            ],
+            [
                 'attribute' => 'nombre',
                 'format' => 'raw',
                 'value' => function ($data) {
@@ -40,6 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'rareza',
             'elemento',
             'arma',
+            'vida_maxima',
+            'fuerza_maxima',
             [
                 'attribute' => 'hab1.nombre',
                 'label' => 'Habilidad 1'
@@ -48,29 +57,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'hab2.nombre',
                 'label' => 'Habilidad 2'
             ],
-            [
-                'attribute' => 'pas1.nombre',
-                'label' => 'Pasiva 1'
-            ],
-            [
-                'attribute' => 'pas2.nombre',
-                'label' => 'Pasiva 2'
-            ],
-            [
-                'attribute' => 'pas3.nombre',
-                'label' => 'Pasiva 3'
-            ],
             //'coab_id',
             //'backstory',
             //'vida_base',
-            //'vida_maxima',
             //'vida4promocion',
             //'vida5promocion',
             //'vida40nodos',
             //'vida45nodos',
             //'vida50nodos',
             //'fuerza_base',
-            //'fuerza_maxima',
             //'fuerza4promocion',
             //'fuerza5promoción',
             //'fuerza40nodos',

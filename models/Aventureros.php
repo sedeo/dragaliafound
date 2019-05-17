@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "aventureros".
  *
@@ -157,5 +155,10 @@ class Aventureros extends \yii\db\ActiveRecord
     public function getPas3()
     {
         return $this->hasOne(Pasivas::className(), ['id' => 'pas3_id']);
+    }
+
+    public function getImagenEnteraUrl()
+    {
+        return \Yii::$app->request->BaseUrl . 'uploads/imagen_entera/' . $this->imagen_entera;
     }
 }

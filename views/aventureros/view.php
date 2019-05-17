@@ -6,58 +6,87 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aventureros */
 
-$this->title = $model->id;
+$this->title = $model->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Aventureros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="aventureros-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 align='center'><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <?php if (Yii::$app->user->can('admin')): ?>
+        <p>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
+    <?php endif; ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'nombre',
-            'rareza',
-            'elemento',
-            'arma',
-            'hab1_id',
-            'hab2_id',
-            'pas1_id',
-            'pas2_id',
-            'pas3_id',
-            'coab_id',
-            'backstory',
-            'vida_base',
-            'vida_maxima',
-            'vida4promocion',
-            'vida5promocion',
-            'vida40nodos',
-            'vida45nodos',
-            'vida50nodos',
-            'fuerza_base',
-            'fuerza_maxima',
-            'fuerza4promocion',
-            'fuerza5promoción',
-            'fuerza40nodos',
-            'fuerza45nodos',
-            'fuerza50nodos',
-            'imagen_entera',
-            'imagen_minimizada',
-        ],
-    ]) ?>
+    <div class="info-personaje">
+        <?= Html::img(Yii::getAlias('@web').'/uploads/imagen_entera/'. $model->imagen_entera) ?>
+
+        <div class="detalles">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'backstory',
+                    'vida_base',
+                    'vida_maxima',
+                    'fuerza_base',
+                    'fuerza_maxima',
+                    'rareza',
+                    'elemento',
+                    'arma',
+                ],
+            ]) ?>
+        </div>
+
+    </div>
+
+    <div class="habilidades">
+        <h3 align='center'>Habilidades</h3>
+
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th><h4 align='center'><?= $model->hab1->nombre ?></h4></th>
+                    <th><h4 align='center'><?= $model->hab2->nombre ?></h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align='center'><?= $model->hab1->descripcion ?></td>
+                    <td align='center'><?= $model->hab2->descripcion ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pasivas">
+        <h3 align='center'>Pasivas</h3>
+
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th><h4 align='center'><?= $model->pas1->nombre ?></h4></th>
+                    <th><h4 align='center'><?= $model->pas2->nombre ?></h4></th>
+                    <th><h4 align='center'><?= $model->pas3->nombre ?></h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align='center'><?= $model->pas1->descripcion ?></td>
+                    <td align='center'><?= $model->pas2->descripcion ?></td>
+                    <td align='center'><?= $model->pas3->descripcion ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>

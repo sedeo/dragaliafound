@@ -113,3 +113,32 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.info-personaje {
+    display: flex;
+    flex-direction: row;
+}
+
+.detalles {
+    width: 60%;
+}
+
+.habilidades > table thead{
+    background-color: #F5DDA4;
+}
+
+.habilidades > table td {
+    padding: 20px;
+    vertical-align: text-top;
+    width: 50%;
+}
+
+.pasivas > table thead{
+    background-color: #F5DDA4;
+}
+
+.pasivas > table td {
+    padding: 20px;
+    vertical-align: text-top;
+    width: 33%;
+}

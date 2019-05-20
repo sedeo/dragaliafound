@@ -105,7 +105,7 @@ class Aventureros extends \yii\db\ActiveRecord
             'fuerza45nodos' => 'Fuerza45nodos',
             'fuerza50nodos' => 'Fuerza50nodos',
             'imagen_entera' => 'Imagen Entera',
-            'imagen_minimizada' => 'Imagen Minimizada',
+            'imagen_minimizada' => 'Icono',
         ];
     }
 

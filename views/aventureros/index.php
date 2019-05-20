@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AventurerosSearch */
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'imagen_minimizada',
                 'format' => 'html',
                 'value' => function ($data) {
-                    return Html::img(Yii::getAlias('@web').'uploads/imagen_entera/'. $data['imagen_minimizada']);
+                    return Html::a(Html::img(Yii::getAlias('@web').'uploads/imagen_entera/'. $data['imagen_minimizada']), ['aventureros/view', 'id' => $data->id]);
                 },
             ],
             [

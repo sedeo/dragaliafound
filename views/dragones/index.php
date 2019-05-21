@@ -14,30 +14,59 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Dragones', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if (Yii::$app->user->can('admin')): ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <p>
+            <?= Html::a('Create Dragones', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+
+    <?php endif; ?>
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'nombre',
+            //'id',
+            [
+                'attribute' => 'imagen_minimizada',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::a(Html::img(Yii::getAlias('@web').'uploads/imagen_minimizada/'. $data['imagen_minimizada']), ['dragones/view', 'id' => $data->id]);
+                },
+            ],
+            [
+                'attribute' => 'nombre',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::a(Html::encode($data->nombre), ['dragones/view', 'id' => $data->id]);
+                },
+            ],
             'elemento',
             'rareza',
-            'backstory',
-            //'hab_id',
-            //'pas1_id',
-            //'pas2_id',
-            //'vida_base',
-            //'vida_maxima',
-            //'fuerza_base',
-            //'fuerza_maxima',
+            //'backstory',
+            'vida_base',
+            'vida_maxima',
+            'fuerza_base',
+            'fuerza_maxima',
+            [
+                'attribute' => 'hab.nombre',
+                'label' => 'Habilidad'
+            ],
+            [
+                'attribute' => 'pas1.nombre',
+                'label' => 'Pasiva 1'
+            ],
+            [
+                'attribute' => 'pas2.nombre',
+                'label' => 'Pasiva 2',
+                'value' => function($data) {
+                    return $data['pas2']['nombre'] == null ? '-' : $data['pas2']['nombre'];
+                }
+            ],
             //'vida_base_pasiva',
             //'fuerza_base_pasiva',
             //'vida_maxima_pasiva',
@@ -48,7 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'imagen_entera',
             //'imagen_minimizada',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visible' => Yii::$app->user->can('admin') ? true : false,
+            ],
         ],
     ]); ?>
 

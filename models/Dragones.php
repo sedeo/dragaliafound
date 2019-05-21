@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "dragones".
  *
@@ -87,7 +85,7 @@ class Dragones extends \yii\db\ActiveRecord
             'resistencia_base' => 'Resistencia Base',
             'resistencia_maxima' => 'Resistencia Maxima',
             'imagen_entera' => 'Imagen Entera',
-            'imagen_minimizada' => 'Imagen Minimizada',
+            'imagen_minimizada' => 'Icono',
         ];
     }
 

@@ -118,6 +118,10 @@ a.desc:after {
     vertical-align: middle;
 }
 
+.dragones-index table tbody tr td{
+    vertical-align: middle;
+}
+
 .info-personaje {
     display: flex;
     flex-direction: row;

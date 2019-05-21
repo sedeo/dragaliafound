@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 
+    <?php // Plantear uso de ListView para mayor eficiencia ?>
+
     <div class="habilidades">
         <h3 align='center'>Habilidades</h3>
 

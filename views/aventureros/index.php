@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'imagen_minimizada',
                 'format' => 'html',
                 'value' => function ($data) {
-                    return Html::a(Html::img(Yii::getAlias('@web').'uploads/imagen_entera/'. $data['imagen_minimizada']), ['aventureros/view', 'id' => $data->id]);
+                    return Html::a(Html::img(Yii::getAlias('@web').'uploads/imagen_minimizada/'. $data['imagen_minimizada']), ['aventureros/view', 'id' => $data->id]);
                 },
             ],
             [

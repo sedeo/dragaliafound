@@ -57,7 +57,12 @@ INSERT INTO habilidades (nombre, descripcion)
          , ('Blaze of Gold', 'Realiza 2 impactos de 309/343/381% de daño de luz a enemigos circundantes.')
          , ('Pride of the Forge', 'Aumenta la fuerza del equipo en un 8/10% durante 15 segundos.')
          , ('Endless Nightmare', 'Realiza un disparo de 725/805/895% de daño oscuro a enemigos en una línea.')
-         , ('Dark Abyss', 'Realiza un impacto de 725/805% de daño oscuro al objetivo y a enemigos cercanos.');
+         , ('Dark Abyss', 'Realiza un impacto de 725/805% de daño oscuro al objetivo y a enemigos cercanos.')
+         , ('Promethean Flame', 'Realiza un impacto de 504/560% de daño de fuego al objetivo y a enemigos cercanos.')
+         , ('Tidal Stream', 'Realiza un impacto de 869,4/913,5% de daño de agua a enemigos directamente enfrente, y les causa estancamiento durante 8 segundos con un 160/180% de probabilidad base.')
+         , ('Grand Tempest', 'Realiza un impacto de 619,5/650,3% de daño de viento a enemigos en una línea, y les causa aturdimiento durante 5-6/6-7 segundos con un 160/180% de probabilidad base.')
+         , ('Saint''s Banner', 'Realiza un impacto de 743,4/826% de daño de luz a enemigos circundantes, e incrementa la defensa del equipo en un 25/30% durante 15 segundos.')
+         , ('Daybreak Flurry', 'Realiza 6 impactos de 99/104% de daño de oscuridad a enemigos directamente enfrente, y les causa sangrado durante 30 segundos, causando 110/146% de daño cada 4,99 segundos, con un 90/100% de probabilidad base.');
 
 DROP TABLE IF EXISTS pasivas CASCADE;
 
@@ -107,7 +112,13 @@ INSERT INTO pasivas (nombre, descripcion)
          , ('Poison Res', 'Reduce la susceptibilidad a veneno en un 25/50%.')
          , ('Full HP = Skill Damage', 'Aumenta el daño causado por habilidades en un 25/30% cuando la vida está llena.')
          , ('Paralysis Res', 'Reduce la susceptibilidad a parálisis en un 25/50%.')
-         , ('Paralysis Res', 'Reduce la susceptibilidad a parálisis en un 25%.');
+         , ('Paralysis Res', 'Reduce la susceptibilidad a parálisis en un 25%.')
+         , ('(Flame) Strength & Wind Res', 'Si el usuario está armonizado al fuego, aumenta el ataque en un 35/50% y la resistencia al viento en un 15%.')
+         , ('(Water) Strength', 'Si el usuario está armonizado al agua, aumenta el ataque en un 40/60%.')
+         , ('(Wind) HP & Strength', 'Si el usuario está armonizado al viento, aumenta el ataque y la vida en un 15/20%.')
+         , ('Dragon Time', 'Aumenta el tiempo de transformación en un 15/20%.')
+         , ('(Light) HP', 'Si el usuario está armonizado a la luz, aumenta la vida en un 40/60%.')
+         , ('(Shadow) Strength', 'Si el usuario está armonizado a la oscuridad, aumenta el ataque en un 40/60%.');
 
 DROP TABLE IF EXISTS cohabilidades CASCADE;
 
@@ -212,3 +223,43 @@ INSERT INTO aventureros (nombre, rareza, elemento, arma, hab1_id, hab2_id, pas1_
          , ('Melody', 3, 'Viento', 'Katana', 25, 26, 32, 33, 34, 4, 'Sirvienta aplicada en un eterno estado de entrenamiento debido a su naturaleza patosa. No existe manera de contar cuántos platos ha roto o cuántos delantales ha quemado. ¿Será capaz alguna vez de hacerse llamar una sirvienta de verdad?', 59, 421, 10, 8, 230, 258, 282, 37, 267, 6, 5, 145, 163, 179, 'Melody.png', 'Melodymini.png')
          , ('Malka', 3, 'Luz', 'Lanza', 27, 28, 35, 36, 12, 13, 'Un maestro artesano ataviado en armadura áurea. Hay quienes piensan que lo hace para jactarse de su riqueza, pero no es esa la razón. Su fervor por la armadura arde con más intensidad que ninguna forja, y su necesidad de salvar vidas es más férrea que el acero.', 60, 427, 10, 8, 234, 263, 287, 36, 260, 6, 5, 141, 158, 175, 'Malka.png', 'Malkamini.png')
          , ('Althemia', 3, 'Oscuro', 'Varita', 29, 30, 37, 38, 39, 19, 'Una joven que es tímida con gente nueva. Es capaz de hablar largo y tendido sobre su investigación, pero es de otro modo poco elocuente, y a menudo actúa de manera arrogante para ocultar su vergüenza. Aunque tiene pasión con su investigación, está falta de habilidades sociales.', 60, 423, 10, 9, 230, 258, 283, 37, 263, 7, 5, 142, 159, 177, 'Althemia.png', 'Althemiamini.png');
+
+DROP TABLE IF EXISTS dragones CASCADE;
+
+CREATE TABLE dragones
+(
+    id                  bigserial       PRIMARY KEY
+  , nombre              varchar(255)    NOT NULL
+  , elemento            varchar(255)
+  , rareza              numeric(1)
+  , backstory           varchar(1000)
+  , hab_id              bigint          REFERENCES habilidades (id)
+                                        ON DELETE NO ACTION
+                                        ON UPDATE CASCADE
+  , pas1_id             bigint          REFERENCES pasivas (id)
+                                        ON DELETE NO ACTION
+                                        ON UPDATE CASCADE
+  , pas2_id             bigint          REFERENCES pasivas (id)
+                                        ON DELETE NO ACTION
+                                        ON UPDATE CASCADE
+  , vida_base           numeric(3)
+  , vida_maxima         numeric(3)
+  , fuerza_base         numeric(3)
+  , fuerza_maxima       numeric(3)
+  , vida_base_pasiva    numeric(3,2)
+  , fuerza_base_pasiva  numeric(3,2)
+  , vida_maxima_pasiva  numeric(3,2)
+  , fuerza_maxima_pasiva    numeric(3,2)
+  , resistencia_elemental   varchar(255)
+  , resistencia_base    numeric(3,2)
+  , resistencia_maxima  numeric(3,2)
+  , imagen_entera       varchar(255)
+  , imagen_minimizada   varchar(255)
+);
+
+INSERT INTO dragones (nombre, elemento, rareza, backstory, hab_id, pas1_id, pas2_id, vida_base, vida_maxima, fuerza_base, fuerza_maxima, vida_base_pasiva, fuerza_base_pasiva, vida_maxima_pasiva, fuerza_maxima_pasiva, resistencia_elemental, resistencia_base, resistencia_maxima, imagen_entera, imagen_minimizada)
+    VALUES ('Prometheus', 'Fuego', 5, 'Un  poderoso dragón que heredó la Llama Primigenia. Cree que los fuertes tienen el deber de proteger a los débiles, pero aun así su gran poder una vez hirió a aquellos que quería salvar. Desde entonces, ha mantenido la distancia con la humanidad.', 31, 40, null, 37, 374, 12, 121, 0, 0, 0.35, 0.5, 'Viento', 0.15, 0.15, 'Prometheus.png', 'Prometheusmini.png')
+         , ('Leviathan', 'Agua', 5, 'Un dragón que ha dormido en las profundidades del océano desde tiempos inmemoriales. A pesar de que su nombre solo se susurre por creerle un señor de la calamidad, es un perfecto caballero que detesta su colosal poder y lo que representa.', 32, 41, null, 37, 370, 12, 125, 0, 0, 0.4, 0.6, 'Ninguno', 0, 0, 'Leviathan.png', 'Leviathanmini.png')
+         , ('High Midgardsormr', 'Viento', 5, 'La forma del Wyrm del Viento Midgardsormr después de desatar su verdadero poder. Con el batir de sus alas, puede conjurar temerosos vendavales, arrasándolo todo a su paso. Usa su vasto conocimiento y poder para defender el reino fundado por su antigüo maestro.', 33, 42, 43, 35, 356, 11, 114, 0.2, 0.3, 0.2, 0.3, 'Ninguno', 0, 0, 'HighMidgardsormr.png', 'HighMidgardsormrmini.png')
+         , ('Jeanne D''Arc', 'Luz', 5, 'Una caballera misericordiosa y eterna cuyas leyendas abundan, con la forma de una joven doncella. Se dice que aparece allá donde haya gente sufriendo―sea por gobiernos corruptos o por invasiones de monstruos―y los guía hasta la salvación.', 34, 44, null, 38, 384, 11, 113, 0.4, 0.6, 0, 0, 'Ninguno', 0, 0, 'JeanneDArc.png', 'JeanneDArcmini.png')
+         , ('Marishiten', 'Oscuro', 5, 'Uno de los doce grandes dragones que sirven a Amaterasu. Belicosa y poseedora de fuerza prodigiosa, es adorada entre los guerreros como un icono de la victoria asegurada. En temas más agradables, tiene una serie de pequeños jabalíes que la siguen allá donde va.', 35, 44, null, 37, 374, 12, 121, 0, 0, 0.4, 0.6, 'Ninguno', 0, 0, 'Marishiten.png', 'Marishitenmini.png');

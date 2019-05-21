@@ -114,6 +114,10 @@ a.desc:after {
     outline: none;
 }
 
+.aventureros-index table tbody tr td{
+    vertical-align: middle;
+}
+
 .info-personaje {
     display: flex;
     flex-direction: row;

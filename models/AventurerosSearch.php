@@ -45,7 +45,7 @@ class AventurerosSearch extends Aventureros
      */
     public function search($params)
     {
-        $query = Aventureros::find()->joinWith(['hab1', 'hab2 h']);
+        $query = Aventureros::find()->alias('av')->joinWith(['hab1 h1', 'hab2 h2']);
 
         // add conditions that should always apply here
 
@@ -54,13 +54,13 @@ class AventurerosSearch extends Aventureros
         ]);
 
         $dataProvider->sort->attributes['hab1.nombre'] = [
-            'asc' => ['habilidades.nombre' => SORT_ASC],
-            'desc' => ['habilidades.nombre' => SORT_DESC],
+            'asc' => ['h1.nombre' => SORT_ASC],
+            'desc' => ['h1.nombre' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['hab2.nombre'] = [
-            'asc' => ['habilidades.nombre' => SORT_ASC],
-            'desc' => ['habilidades.nombre' => SORT_DESC],
+            'asc' => ['h2.nombre' => SORT_ASC],
+            'desc' => ['h2.nombre' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -97,14 +97,14 @@ class AventurerosSearch extends Aventureros
             'fuerza50nodos' => $this->fuerza50nodos,
         ]);
 
-        $query->andFilterWhere(['ilike', 'nombre', $this->nombre])
+        $query->andFilterWhere(['ilike', 'av.nombre', $this->nombre])
             ->andFilterWhere(['ilike', 'elemento', $this->elemento])
             ->andFilterWhere(['ilike', 'arma', $this->arma])
             ->andFilterWhere(['ilike', 'backstory', $this->backstory])
             ->andFilterWhere(['ilike', 'imagen_entera', $this->imagen_entera])
             ->andFilterWhere(['ilike', 'imagen_minimizada', $this->imagen_minimizada])
-            ->andFilterWhere(['ilike', 'habilidades.nombre', $this->getAttribute('hab1.nombre')])
-            ->andFilterWhere(['ilike', 'habilidades.nombre', $this->getAttribute('hab2.nombre')]);
+            ->andFilterWhere(['ilike', 'h1.nombre', $this->getAttribute('hab1.nombre')])
+            ->andFilterWhere(['ilike', 'h2.nombre', $this->getAttribute('hab2.nombre')]);
 
         return $dataProvider;
     }

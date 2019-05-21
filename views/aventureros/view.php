@@ -89,4 +89,21 @@ $this->params['breadcrumbs'][] = $this->title;
         </table>
     </div>
 
+    <div class="cohabilidad">
+        <h3 align='center'>Co-habilidad</h3>
+
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th><h4 align='center'><?= $model->coab->nombre ?></h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align='center'><?= $model->coab->descripcion ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

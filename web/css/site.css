@@ -124,7 +124,17 @@ a.desc:after {
 }
 
 .detalles {
-    width: 60%;
+    width: 64%;
+}
+
+.habilidades{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.habilidades > table{
+    width: 66%
 }
 
 .habilidades > table thead{
@@ -134,7 +144,13 @@ a.desc:after {
 .habilidades > table td {
     padding: 20px;
     vertical-align: text-top;
-    width: 50%;
+    width: 33%;
+}
+
+.pasivas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pasivas > table thead{
@@ -145,4 +161,18 @@ a.desc:after {
     padding: 20px;
     vertical-align: text-top;
     width: 33%;
+}
+
+.cohabilidad{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cohabilidad > table{
+    width: 33%;
+}
+
+.cohabilidad > table thead{
+    background-color: #F5DDA4;
 }
